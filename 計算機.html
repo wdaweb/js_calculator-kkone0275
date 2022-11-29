@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>計算機裝置</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik+Microbe&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      background: url(./image/7beW.png);
+      background-repeat: no-repeat;
+    }
+
+    #main {
+      position: absolute;
+      top: 17%;
+      right: 30%;
+    }
+
+    #text {
+      font-size: 80px;
+      width: 500px;
+      height: 180px;
+    }
+
+    td {
+      width: 138px;
+      height: 116px;
+      font-size: 42px;
+      font-family: 'Press Start 2P', cursive;
+      color: rgb(0, 77, 55);
+      background: rgb(195, 245, 0);
+      text-align: center;
+      vertical-align: center;
+    }
+
+    .ba {
+      background: rgb(236, 236, 236);
+    }
+
+    .p01 img {
+      position: absolute;
+      width: 66%;
+      height: 94%;
+      top: 6%;
+      right: 16%;
+    }
+
+    .e01 {
+      position: absolute;
+      width: 15%;
+      top: 4%;
+      right: 1%;
+    }
+
+    table {
+      /* border: 2px solid rgb(253, 253, 253); */
+      border-radius: 10px;
+      border-collapse: collapse;
+    }
+
+    table td {
+      border: 4px solid rgb(8, 80, 119);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="p01">
+    <img src="./image/pp01.png">
+  </div>
+  <div id="main">
+    <div>
+      <img class="e01" src="./image/E01.png">
+    </div>
+    <table>
+      <tr>
+        <td colspan="5" id="text">0</td>
+      </tr>
+      <tr>
+        <td class="ba">C</td>
+        <td class="ba">/</td>
+        <td class="ba">*</td>
+        <td class="ba">.</td>
+        <td class="ba">-</td>
+        <td class="ba">+</td>
+      </tr>
+      <!-- <tr>
+        <td>6</td>
+        <td>8</td>
+        <td>9</td>
+        <td rowspan="2">+</td>
+      </tr> -->
+      <tr>
+        <td class="ba">5</td>
+        <td class="ba">6</td>
+        <td class="ba">7</td>
+        <td class="ba">8</td>
+        <td class="ba">9</td>
+        <td rowspan="2">=</td>
+      </tr>
+      <tr>
+        <td class="ba">0</td>
+        <td class="ba">1</td>
+        <td class="ba">2</td>
+        <td class="ba">3</td>
+        <td class="ba">4</td>
+      </tr>
+      <tr>
+        <!-- <td colspan="2">0</td>
+        <td>.</td> -->
+      </tr>
+    </table>
+  </div>
+  <script>
+    const text = document.getElementById('text')
+    const btns = document.querySelectorAll('td:not(#text)')
+
+    for (const btn of btns) {
+      btn.onclick = () => {
+        const btnText = btn.innerText
+        if (btnText === '=') {
+          text.innerText = eval(text.innerText)
+        } else if (btnText === 'C') {
+          text.innerText = '0'
+        } else {
+          if (text.innerText === '-' && isNaN(parseInt(btnText))) return
+
+          if (text.innerText !== '0') {
+            text.innerText += btnText
+          } else if (!['+', '*', '/'].includes(btnText)) {
+            text.innerText = btnText
+          }
+        }
+      }
+    }
+
+    document.onkeydown = event => {
+      const btnText = event.key
+      if (btnText === 'Enter' || btnText === '=') {
+        text.innerText = eval(text.innerText)
+      } else if (btnText === 'C') {
+        text.innerText = '0'
+      } else {
+        if (text.innerText === '-' && isNaN(parseInt(btnText))) return
+
+        if (text.innerText !== '0') {
+          text.innerText += btnText
+        } else if (!['+', '*', '/'].includes(btnText)) {
+          text.innerText = btnText
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
